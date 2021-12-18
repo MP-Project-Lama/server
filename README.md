@@ -23,3 +23,7 @@
 
 
 
+# Entity Relationship Diagram (ERD)
+
+![erd](./diagrams/erd.png)
+
