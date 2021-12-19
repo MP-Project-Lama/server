@@ -148,7 +148,8 @@
 # Links
 
 #### Trello 
-You can visit my Trello [Here](https://trello.com/b/v5XlqqjM/mp-project-lama)
+
+visit my Trello [Here](https://trello.com/b/v5XlqqjM/mp-project-lama)
 
 #### Git
 - [Client repository Link](https://github.com/MP-Project-Lama/client)
