@@ -194,21 +194,21 @@ npm start
 
 | HTTP Method       | URL               |       Request Body                    |      Success status     |      Error Status   |    Description   |    
 | :---              |     :---:         |        :---:                          |        :---:            |        :---:        |       :---:      |
-| POST              |     /signup       |      {email, username , password}     |         201             |         404         | check if the user not exists, then create new user with encrypted password , and store it in the database   | 
-| POST              |     /login        |      {username , password}            |         201             |         404         | check if user exists and the password is correct , then navigate to home page   |
-| GET               |     /blog         |                                       |         200             |         400         | Used to view all designres's posts in the App  |
-| POST              |     /post         |      {title, desc, media}             |         201             |         400         | Used to create a new post to the blog  by designer  | 
-| PUT               |     /post/:id     |      {title , desc, media}            |         200             |         400         | Used to edit a post by designer  | 
-| PUT               |  /post/del/:id    |             { isDel}                  |         200             |         400         | Used to delete a post (soft delete) by designer  | 
-| POST              |    /collection    |  { title , desc , media , material}   |         201             |         400         | Used to create a new collection to collections by designer | 
-| GET               |    /collections   |                                       |         200             |         400         | Used to view all collections    | 
-| PUT               |  /collection/:id  |  { title , desc , media , material}   |         200             |         400         | Used to edit a collection by the designer | 
-| PUT               |  /collection/:id  |             { isDel}                  |         200             |         400         | Used to remove a collection by the designer | 
-| POST              |     /comment      |    { comment, post , user}            |         201             |         400         | Used to create a new comment by the user | 
-| GET               |    /comments      |              { post }                 |         200             |         400         | Used to view all post's comments  | 
-| PUT               |    /comment       |        { id , comment }               |         200             |         400         | Used to edit a comment  | 
-| PUT               |    /comment       |        { id , isDel }                 |         200             |         400         | Used to delete a comment (soft delete)| 
-| POST              |     /dm           |    { comment, post , user}            |         201             |         400         | Used to create a new dierct message | 
+| POST              |     `/signup`       |      {email, username , password}     |         201             |         404         | check if the user not exists, then create new user with encrypted password , and store it in the database   | 
+| POST              |     `/login`        |      {username , password}            |         201             |         404         | check if user exists and the password is correct , then navigate to home page   |
+| GET               |     `/blog`         |                                       |         200             |         400         | Used to view all designres's posts in the App  |
+| POST              |     `/post`         |      {title, desc, media}             |         201             |         400         | Used to create a new post to the blog  by designer  | 
+| PUT               |     `/post/:id`     |      {title , desc, media}            |         200             |         400         | Used to edit a post by designer  | 
+| PUT               |  `/post/del/:id`    |             { isDel}                  |         200             |         400         | Used to delete a post (soft delete) by designer  | 
+| POST              |    `/collection`    |  { title , desc , media , material}   |         201             |         400         | Used to create a new collection to collections by designer | 
+| GET               |    `/collections`   |                                       |         200             |         400         | Used to view all collections    | 
+| PUT               |  `/collection/:id`  |  { title , desc , media , material}   |         200             |         400         | Used to edit a collection by the designer | 
+| PUT               |  `/collection/:id`  |             { isDel}                  |         200             |         400         | Used to remove a collection by the designer | 
+| POST              |     `/comment`      |    { comment, post , user}            |         201             |         400         | Used to create a new comment by the user | 
+| GET               |   ` /comments `     |              { post }                 |         200             |         400         | Used to view all post's comments  | 
+| PUT               |    `/comment `      |        { id , comment }               |         200             |         400         | Used to edit a comment  | 
+| PUT               |    `/comment `      |        { id , isDel }                 |         200             |         400         | Used to delete a comment (soft delete)| 
+| POST              |     `/dm `          |    { comment, post , user}            |         201             |         400         | Used to create a new dierct message | 
 
 
 
@@ -224,7 +224,8 @@ npm start
 # Links
 
 #### Trello 
-You can visit my Trello [Here](https://trello.com/b/v5XlqqjM/mp-project-lama)
+
+visit my Trello [Here](https://trello.com/b/v5XlqqjM/mp-project-lama)
 
 #### Git
 - [Client repository Link](https://github.com/MP-Project-Lama/client)
@@ -232,4 +233,4 @@ You can visit my Trello [Here](https://trello.com/b/v5XlqqjM/mp-project-lama)
 - [Deployed App Link ](https://github.com/MP-Project-Lama/server)
 
 #### Slides
- You can display my presentation slides [Here](https://github.com/MP-Project-Lama/server)
+ You can find my presentation slides [Here](https://github.com/MP-Project-Lama/server)
