@@ -1,3 +1,4 @@
+# Server / Backend
 # Masterpiece-Project
 
 ## User Story: 
@@ -33,28 +34,97 @@
 ![uml](./diagrams/uml.png)
 
 
+## Models 
 
-# Router Routes
+###### Roles 
 
-| Path              | Component         |   permissions     |                           Behavior                                               |               
-| :---              |     :---:         |     :---:         |                             ---:                                                 |
-| /                 |     Home          |      Public       |    Home Page, About , Concat                                                     |
-| /signup           |     SignUp        |      Public       |    Signup form, navigate to the login form                                       |
-| /login            |     Login         |      Public       |    Login form, navigate to the home page                                         |
-| /blog             |     Blog          |      Public       |    Show all designers's posts                                                    |
-| /post/:id         |     Post          |     User Only     |    show specific post and it's likes, comments                                   |
-| /explre           |     Explore       |      Public       |    show the collections , designers, materials , and navigate to all of them     |
-| /collection /:id  |     Collection    |     User Only     |    show a specific collection , navigate to Dierct message                       |
-| /designer/:id     |     Designer      |      Public       |    show the designer's info , navigate to dierct message                         |
-| /room/:id         |  DirectMessage    |     User Only     |    dierct message between client and the designer                                |
-| /material/:id     |     Material      |      Public       |    show all collections that made with a material                                |
-| /profile/:id      |     Profile       |     User Only     |    show user's info                                                              |
- 
+| Key               | Type              |       Options               |      Default value      |               
+| :---              |     :---:         |        :---:                |        :---:            |
+| _id               |     String        |      required, unique       |         n/a             |
+| role              |     String        |      required, unique       |         n/a             |
 
 
 
+###### users
+
+| Key               | Type              |       Options               |      Default value      |               
+| :---              |     :---:         |        :---:                |        :---:            |
+| _id               |     String        |      required, unique       |         n/a             |
+| email             |     String        |      required, unique       |         n/a             |
+| username          |     String        |      required, unique       |         n/a             |
+| password          |     String        |      required               |         n/a             |
+| isActive          |     Boolean       |                             |         false           |
+| isDel             |     Boolean       |                             |        false            |
+| role              |     Ref(role)     |      required               |         n/a             |
+| avatar            |     String        |                             |         n/a             |
 
 
-### Trello 
-=> https://trello.com/b/v5XlqqjM/mp-project-lama
 
+###### Posts
+
+| Key               | Type              |       Options               |      Default value      |               
+| :---              |     :---:         |        :---:                |        :---:            |
+| _id               |     String        |      required, unique       |         n/a             |
+| title             |     String        |      required               |         n/a             |
+| desc              |     String        |      required               |         n/a             |
+| media             |     Array         |                             |         n/a             |
+| createdBy         |     Ref(user)     |                             |         n/a             |
+| createdAt         |     Date          |                             |         n/a             |
+| isDel             |     Boolean       |                             |         false           |
+
+
+
+###### Comments
+
+| Key               | Type              |       Options               |      Default value      |               
+| :---              |     :---:         |        :---:                |        :---:            |
+| _id               |     String        |      required, unique       |         n/a             |
+| comment           |     String        |      required               |         n/a             |
+| createdBy         |     Ref(user)     |                             |         n/a             |
+| createdAt         |     Date          |                             |         n/a             |
+| post              |     Ref(post)     |                             |         n/a             |
+| isDel             |     Boolean       |                             |         false           |
+
+
+###### likes
+
+| Key               | Type              |       Options               |      Default value      |               
+| :---              |     :---:         |        :---:                |        :---:            |
+| _id               |     String        |      required, unique       |         n/a             |
+| like              |     Boolean       |      required               |         false           |
+| createdBy         |     Ref(user)     |                             |         n/a             |
+| post              |     Ref(post)     |                             |         n/a             |
+| isDel             |     Boolean       |                             |         false           |
+
+
+###### Designs
+
+
+| Key               | Type              |       Options               |      Default value      |               
+| :---              |     :---:         |        :---:                |        :---:            |
+| _id               |     String        |      required, unique       |         n/a             |
+| title             |     String        |      required               |         n/a             |
+| desc              |     String        |      required               |         n/a             |
+| media             |     Array         |      required               |         n/a             |
+| caregory          |     String        |      required               |         n/a             |
+| material          |     String        |      required               |         n/a             |
+| createdBy         |     Ref(user)     |                             |         n/a             |
+| createdAt         |     Date          |                             |         n/a             |
+| isDel             |     Boolean       |                             |         false           |
+
+
+
+
+
+# Links
+
+#### Trello 
+You can visit my Trello [Here](https://trello.com/b/v5XlqqjM/mp-project-lama)
+
+#### Git
+- [Client repository Link](https://github.com/MP-Project-Lama/client)
+- [Server repository Link](https://github.com/MP-Project-Lama/server)
+- [Deployed App Link ](https://github.com/MP-Project-Lama/server)
+
+#### Slides
+ You can display my presentation slides [Here](https://github.com/MP-Project-Lama/server)
