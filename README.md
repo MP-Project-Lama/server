@@ -27,3 +27,8 @@
 
 ![erd](./diagrams/erd.png)
 
+
+# UML Diagram 
+
+![uml](./diagrams/uml.png)
+
