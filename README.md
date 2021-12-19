@@ -47,7 +47,7 @@
 | /collection /:id  |     Collection    |     User Only     |    show a specific collection , navigate to Dierct message                       |
 | /designer/:id     |     Designer      |      Public       |    show the designer's info , navigate to dierct message                         |
 | /room/:id         |  DirectMessage    |     User Only     |    dierct message between client and the designer                                |
-| /material/:id     |     Material      |      Public       |    show all collections that made with a material                                |
+| /material/:id     |     Material      |      Public       |    show all collections that made with a specific material                       |
 | /profile/:id      |     Profile       |     User Only     |    show user's info                                                              |
  
 
