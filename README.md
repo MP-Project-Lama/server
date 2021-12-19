@@ -1,5 +1,82 @@
 # Server / Backend
-# Masterpiece-Project
+# Tuwaiq - Masterpiece-Project
+
+# Description
+
+this is server side for fashion site , built with Express.js , it's a platform that gathers fashion designers with their clients , and let them share their experiences , ideas in a timeline blog 
+
+
+## Installing Dependencies
+
+##### Node js:
+
+Follow instructions to install the latest version of Node js for your application in the [Node js docs](https://nodejs.org/en/)
+
+##### NPM Dependencies:
+
+Once you have the project in your local machine, install dependencies by running:
+
+```
+npm install
+```
+
+**now you have to install required packages:**
+
+- [Express:](https://expressjs.com/en/starter/installing.html)
+  Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
+
+```
+npm i express
+
+```
+
+- [Mongoose: ](https://docs.mongodb.com/manual/installation/) Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
+
+```
+npm i mongoose
+```
+
+- [Morgan:](https://www.npmjs.com/package/morgan) morgan is a Node. js and Express middleware to log HTTP requests and errors, and simplifies the process.
+
+```
+npm i morgan
+```
+
+- [CORS: ](https://www.npmjs.com/package/cors) cors is a Node. js and Express middleware it allows you to make requests from one website to another website in the browser.
+
+```
+npm i cors
+```
+
+- [Bcrypt:](https://www.npmjs.com/package/bcrypt)
+  bcrypt is a library on NPM makes it really easy to hash and compare passwords in Node.
+
+```
+npm i bcrypt
+```
+
+- [JWT : ](https://www.npmjs.com/search?q=jwt) The JSON web token (JWT) is one method for allowing authentication, without actually storing any information about the user on the system itself.
+
+```
+npm i jsonwebtoken
+```
+
+
+##### Now Running the Server
+
+Excute this command to run the server in develpment mode
+
+```
+npm run dev
+```
+
+or run the server on production mode ,excute :
+
+```
+npm start
+```
+
+
 
 ## User Story: 
 - *signe up* : As an anon you can sign up in the platform so that you can navigate through the app . 
@@ -21,7 +98,6 @@
 ###### Designers page 
 
 - *Chatting With Designers* : user can contact with designers in a direct message . 
-
 
 
 
