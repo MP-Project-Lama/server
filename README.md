@@ -44,7 +44,6 @@
 | role              |     String        |      required, unique       |         n/a             |
 
 
-
 ###### users
 
 | Key               | Type              |       Options               |      Default value      |               
