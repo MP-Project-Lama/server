@@ -34,10 +34,10 @@
 
 
 
-# Routers Routes
+# Router Routes
 
-| Path              | Component         |   permissions     |    Behavior      
-| :---              |     :---:         |     :---:         |      ---: 
+| Path              | Component         |   permissions     |                           Behavior                                               |               
+| :---              |     :---:         |     :---:         |                             ---:                                                 |
 | /                 |     Home          |      Public       |    Home Page, About , Concat                                                     |
 | /signup           |     SignUp        |      Public       |    Signup form, navigate to the login form                                       |
 | /login            |     Login         |      Public       |    Login form, navigate to the home page                                         |
