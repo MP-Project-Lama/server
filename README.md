@@ -157,4 +157,4 @@ visit my Trello [Here](https://trello.com/b/v5XlqqjM/mp-project-lama)
 - [Deployed App Link ](https://github.com/MP-Project-Lama/server)
 
 #### Slides
- You can display my presentation slides [Here](https://github.com/MP-Project-Lama/server)
+ You can find my presentation slides [Here](https://github.com/MP-Project-Lama/server)
