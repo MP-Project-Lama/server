@@ -165,7 +165,7 @@ npm start
 | isDel             |     Boolean       |                             |         false           |
 
 
-###### Designs
+###### collection
 
 
 | Key               | Type              |       Options               |      Default value      |               
@@ -174,7 +174,7 @@ npm start
 | title             |     String        |      required               |         n/a             |
 | desc              |     String        |      required               |         n/a             |
 | media             |     Array         |      required               |         n/a             |
-| caregory          |     String        |      required               |         n/a             |
+| category          |     String        |      required               |         n/a             |
 | material          |     String        |      required               |         n/a             |
 | createdBy         |     Ref(user)     |                             |         n/a             |
 | createdAt         |     Date          |                             |         n/a             |
