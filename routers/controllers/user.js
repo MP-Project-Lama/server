@@ -120,12 +120,11 @@ const login = (req, res) => {
                   isDel: result.isDel,
                   role: result.role,
                 };
-                  
+
                 const options = {
                   expiresIn: "7d",
                 };
                 const token = jwt.sign(payload, SECRET, options);
-               
 
                 res.status(201).json({ result, token });
               } else {
@@ -151,21 +150,22 @@ const login = (req, res) => {
     });
 };
 
-
 //// get user
-const getMyAccount = (req , res) => {
-    const { id } = req.params;
-    userModel.findOne({ _id : id}).then((result)=> {
-        if (result) {
-            res.status(200).json(result)
-        } else { 
-            res.status(404).json({message : " There Is No User With This ID !"})
-        }
-    }).catch((error)=> {
-        res.status(400).json(error)
+const getMyAccount = (req, res) => {
+  const { id } = req.params;
+  userModel
+    .findOne({ _id: id })
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: " There Is No User With This ID !" });
+      }
     })
-}
-
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
 
 /// this function for admin , it's to get all users in the app that didn't delete their accounts
 const getAllUsers = (req, res) => {
@@ -179,5 +179,35 @@ const getAllUsers = (req, res) => {
     });
 };
 
+//// this function to edit user info in the app
+const editInfo = async (req, res) => {
+  const { avatar, password } = req.body;
+
+  let hashedPassword = "";
+  if (password) {
+    hashedPassword = await bcrypt.hash(password, SALT);
+  }
+
+  const user = await userModel.findOne({ _id: req.token.id });
+  userModel
+    .findByIdAndUpdate(
+      req.token.id,
+      {
+        password: password ? hashedPassword : user.password,
+        avatar: avatar ? avatar : user.avatar,
+      },
+      { new: true }
+    )
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: " There Is No User With This ID !" });
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
 module.exports = { signUp, verifyEmail, login, getMyAccount, getAllUsers };
