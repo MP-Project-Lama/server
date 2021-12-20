@@ -19,7 +19,7 @@ const createRole = (req, res) => {
     });
 };
 
-/// get all roles by this function : 
+/// get all roles in the app by this function : 
 const getRoles = (req, res) => {
   roleModel
     .find({})
