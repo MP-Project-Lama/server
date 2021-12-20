@@ -1,15 +1,18 @@
 const express = require("express");
 require("dotenv").config();
-const app = express();
-const db = require("./db");
 const morgan = require("morgan");
 const cors = require("cors");
+const db = require("./db");
 
 
+
+// initiating the app
+const app = express();
 /// app-level middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 app.use(morgan("dev"));
+
 
 
 //  middleware for role routers
