@@ -1,19 +1,14 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-
-
 /// get database url from variables enviroment
-const DB = process.env.DB
+const DB = process.env.DB;
 
-
-
-///establish connection 
+///establish connection
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-
 
 mongoose.connect(`${DB}`, options).then(
   () => {
@@ -23,5 +18,3 @@ mongoose.connect(`${DB}`, options).then(
     console.log(err);
   }
 );
-
-
