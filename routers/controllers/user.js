@@ -151,4 +151,17 @@ const login = (req, res) => {
     });
 };
 
-module.exports = { signUp, verifyEmail, login };
+
+
+/// this function for admin , it's to get all users in the app that didn't delete their accounts
+const getAllUsers = (req, res) => {
+  userModel
+    .find({ isDel: false })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+module.exports = { signUp, verifyEmail, login, getAllUsers };
