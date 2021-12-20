@@ -73,5 +73,30 @@ const signUp = async (req , res) => {
 }
 
 
+/// verify the account (active email) by this function 
+const verifyEmail = async (req , res) => {
+    const { id, code } = req.body;
 
-module.exports  = {signUp}
+    const user = await userModel.findById(id);
+    if (user) {
+      if (user.activeCode == code) {
+        userModel
+          .findByIdAndUpdate(
+            id,
+            { isActive: true, activeCode: "" },
+            { new: true }
+          )
+          .then((result) => {
+            res.status(200).json(result);
+          })
+          .catch((error) => {
+            res.status(400).json(error);
+          });
+      } else {
+        res.status(404).json("Incorrect Confirmation Code! ");
+      }
+    }
+}
+
+
+module.exports = { signUp, verifyEmail };
