@@ -17,7 +17,7 @@ const rolesRouter = require("./routers/routes/role");
 app.use(rolesRouter);
 
 //// create a middleware for user router
-const usersRouter = require("./routers/routes/users");
+const usersRouter = require("./routers/routes/user");
 app.use(usersRouter);
 
 /// Set PORT
