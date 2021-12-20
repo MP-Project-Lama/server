@@ -152,6 +152,20 @@ const login = (req, res) => {
 };
 
 
+//// get user
+const getMyAccount = (req , res) => {
+    const { id } = req.params;
+    userModel.findOne({ _id : id}).then((result)=> {
+        if (result) {
+            res.status(200).json(result)
+        } else { 
+            res.status(404).json({message : " There Is No User With This ID !"})
+        }
+    }).catch((error)=> {
+        res.status(400).json(error)
+    })
+}
+
 
 /// this function for admin , it's to get all users in the app that didn't delete their accounts
 const getAllUsers = (req, res) => {
@@ -164,4 +178,6 @@ const getAllUsers = (req, res) => {
       res.status(400).json(err);
     });
 };
-module.exports = { signUp, verifyEmail, login, getAllUsers };
+
+
+module.exports = { signUp, verifyEmail, login, getMyAccount, getAllUsers };

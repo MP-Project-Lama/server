@@ -6,6 +6,7 @@ const {
   signUp,
   verifyEmail,
   login,
+  getMyAccount,
   getAllUsers,
 } = require("../controllers/user");
 
@@ -14,6 +15,7 @@ const {
 usersRouter.post("/signup", signUp);
 usersRouter.post("/verify",verifyEmail);
 usersRouter.post("/login", login);
+usersRouter.get("/user/:id", getMyAccount);
 usersRouter.get("/users", getAllUsers);
 
 module.exports = usersRouter;
