@@ -59,8 +59,41 @@ const getPost = (req, res) => {
     });
 };
 
+/// this function to edit a post in the blog
+const editPost = (req, res) => {
+  const { id } = req.params;
+  const { title, desc, media } = req.body;
+  //// update
+  postModel
+    .findOneAndUpdate(
+      {
+        _id: id,
+        isDel: false,
+        createdBy: req.token.id,
+      },
+      {
+        title,
+        desc,
+        media,
+      },
+      { new: true }
+    )
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: " There Is No Post ! " });
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
 module.exports = {
   createNewPost,
   getThePosts,
   getPost,
+  editPost,
 };
