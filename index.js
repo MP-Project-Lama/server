@@ -31,6 +31,10 @@ app.use(postsRouter);
 const commentsRouter = require("./routers/routes/comment");
 app.use(commentsRouter);
 
+///// create a middleware for collections routers
+const collectionsRouter = require("./routers/routes/collection");
+app.use(collectionsRouter);
+
 
 /// Set PORT
 const PORT = process.env.PORT || 5000;
