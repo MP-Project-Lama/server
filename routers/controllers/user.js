@@ -210,4 +210,15 @@ const editInfo = async (req, res) => {
     });
 };
 
-module.exports = { signUp, verifyEmail, login, getMyAccount, getAllUsers };
+
+
+
+
+module.exports = {
+  signUp,
+  verifyEmail,
+  login,
+  getMyAccount,
+  getAllUsers,
+  editInfo,
+};
