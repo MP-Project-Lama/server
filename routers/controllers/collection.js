@@ -24,6 +24,25 @@ const createNewCollection = (req, res) => {
 };
 
 
+// to get all collections in the app : 
+const getTheCollections = (req, res) => {
+  collectionModel
+    .find({ isDel: false })
+    .populate("createdBy")
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: "There Is No Collections!!" });
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
 module.exports = {
   createNewCollection,
+  getTheCollections,
 };
