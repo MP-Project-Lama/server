@@ -210,4 +210,84 @@ const editInfo = async (req, res) => {
     });
 };
 
-module.exports = { signUp, verifyEmail, login, getMyAccount, getAllUsers };
+
+/// this function to check if the email is exist or not , to reset the password
+const checkTheEmail = async (req, res) => {
+  const { email } = req.body;
+   const emailToLowerCase = email.toLowerCase();
+  const exist = await userModel.findOne({ email });
+  if (exist) {
+    let resetCode = "";
+    const characters = "0123456789";
+    for (let i = 0; i < 4; i++) {
+      resetCode += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.WORD,
+      },
+    });
+    userModel
+      .findByIdAndUpdate(exist._id, { resetCode }, { new: true })
+      .then((result) => {
+        res.status(200).json({ result, message: "email has been sent" });
+        transporter.sendMail({
+          from: process.env.EMAIL,
+          to: emailToLowerCase,
+          subject: " Email Varification",
+          html: `<h3> Hello ${result.username}</h3>
+        
+          <p>  Your Verifiction Code : [ ${resetCode} ] </p>
+          <h4> Thank You </h4>
+          `,
+        });
+        
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
+  } else {
+    res.status(404).json({ message: "Invalid Email !" });
+  }
+};
+
+
+/// this function to reset password  
+const resetPassword = async (req, res) => {
+  const { id, code, password } = req.body;
+
+  const user = await userModel.findOne({ _id: id });
+
+  if (user.resetCode == code) {
+    const hashedPassword = await bcrypt.hash(password, SALT);
+    userModel
+      .findByIdAndUpdate(
+        id,
+        { password: hashedPassword, resetCode: "" },
+        { new: true }
+      )
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
+  } else {
+    res.status(404).json({ message: "Incorrect Code !" });
+  }
+};
+
+module.exports = {
+  signUp,
+  verifyEmail,
+  login,
+  getMyAccount,
+  getAllUsers,
+  editInfo,
+  checkTheEmail,
+  resetPassword,
+};

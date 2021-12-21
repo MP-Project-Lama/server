@@ -10,6 +10,9 @@ const {
   login,
   getMyAccount,
   getAllUsers,
+  editInfo,
+  checkTheEmail,
+  resetPassword,
 } = require("../controllers/user");
 
 
@@ -19,5 +22,8 @@ usersRouter.post("/verify",verifyEmail);
 usersRouter.post("/login", login);
 usersRouter.get("/user/:id", authentication, getMyAccount);
 usersRouter.get("/users", authentication, authorization, getAllUsers);
+usersRouter.post("/check", checkTheEmail);
+usersRouter.post("/reset", resetPassword);
+
 
 module.exports = usersRouter;
