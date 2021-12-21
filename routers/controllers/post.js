@@ -1,5 +1,5 @@
 const postModel = require("./../../db/models/post");
-
+const commentModel = require("./../../db/models/comment");
 
 /// this function to create a new post by designer in the app :
 const createNewPost = (req, res) => {
@@ -23,7 +23,7 @@ const createNewPost = (req, res) => {
     });
 };
 
-//// this function to get all the posts in the app 
+//// this function to get all the posts in the app
 const getThePosts = (req, res) => {
   postModel
     .find({ isDel: false })
@@ -33,7 +33,6 @@ const getThePosts = (req, res) => {
         res.status(200).json(result);
       } else {
         res.status(404).json({ message: "There Is No Posts!!" });
-
       }
     })
     .catch((err) => {
@@ -91,10 +90,50 @@ const editPost = (req, res) => {
     });
 };
 
+//this function to remove a post in the blog
+const removePost = (req, res) => {
+  const { id } = req.params;
+
+  postModel
+    .findOneAndUpdate(
+      {
+        _id: id,
+        isDel: false,
+        createdBy: req.token.id,
+      },
+      {
+        isDel: true,
+      },
+      { new: true }
+    )
+    .then((result) => {
+      if (result) {
+        commentModel
+          .updateMany({ post: id, isDel: false }, { isDel: true })
+          .then(() => {
+            res.status(200).json({ message: " All Post's Comments Deleted !" });
+          })
+          .catch((err) => {
+            res.status(400).json(err);
+          });
+        res
+          .status(200)
+          .json({ message: "Post has been Deleted successfully " });
+      } else {
+        console.log(res);
+        res.status(404).json({ message: " There Is No Post To Delete ! " });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+};
 
 module.exports = {
   createNewPost,
   getThePosts,
   getPost,
   editPost,
+  removePost,
 };

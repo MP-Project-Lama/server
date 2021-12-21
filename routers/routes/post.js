@@ -8,6 +8,7 @@ const {
   getThePosts,
   getPost,
   editPost,
+  removePost,
 } = require("../controllers/post");
 
 
@@ -16,6 +17,7 @@ postsRouter.post("/post", authentication, createNewPost);
 postsRouter.get("/blog", getThePosts);
 postsRouter.get("/post/:id", authentication, getPost);
 postsRouter.put("/post/:id", authentication, editPost);
+postsRouter.put("/delete/:id", authentication, removePost);
 
 
 module.exports = postsRouter;
