@@ -23,8 +23,7 @@ const createNewCollection = (req, res) => {
     });
 };
 
-
-// to get all collections in the app : 
+// to get all collections in the app :
 const getTheCollections = (req, res) => {
   collectionModel
     .find({ isDel: false })
@@ -62,9 +61,47 @@ const getCollection = (req, res) => {
     });
 };
 
+/// this function to edit specific collection in the app
+const editCollection = (req, res) => {
+  const { id } = req.params;
+  const { title, desc, media, material, category } = req.body;
+  //// update
+  collectionModel
+    .findOneAndUpdate(
+      {
+        _id: id,
+        isDel: false,
+        createdBy: req.token.id,
+      },
+      {
+        title,
+        desc,
+        media,
+        material,
+        category,
+      },
+      { new: true }
+    )
+    .then((result) => {
+      console.log(result.material);
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: " There Is No Collection ! " });
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
+/// this function to fav specific collection in the app
+
 
 module.exports = {
   createNewCollection,
   getTheCollections,
   getCollection,
+  editCollection,
 };

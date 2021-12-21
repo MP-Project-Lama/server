@@ -7,10 +7,12 @@ const {
   createNewCollection,
   getTheCollections,
   getCollection,
+  editCollection,
 } = require("../controllers/collection");
 
 collectionsRouter.post("/collection", authentication, createNewCollection);
 collectionsRouter.get("/collections", getTheCollections);
-collectionsRouter.get("/collection/:id", getCollection);
+collectionsRouter.get("/collection/:id", authentication, getCollection);
+collectionsRouter.put("/collection/:id", authentication, editCollection);
 
 module.exports = collectionsRouter;
