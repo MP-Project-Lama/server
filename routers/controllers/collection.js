@@ -41,8 +41,30 @@ const getTheCollections = (req, res) => {
     });
 };
 
+// this function to get a collection
+const getCollection = (req, res) => {
+  const { id } = req.params;
+  collectionModel
+    .find({ _id: id, isDel: false })
+    .populate("createdBy")
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res
+          .status(404)
+          .json({ message: "There Is No Collection With this ID!!" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+};
+
 
 module.exports = {
   createNewCollection,
   getTheCollections,
+  getCollection,
 };
