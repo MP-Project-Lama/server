@@ -160,10 +160,52 @@ const favCollection = (req, res) => {
   }
 };
 
+/// this function to remove a collection in the app (soft delete):
+const removeCollection = (req, res) => {
+  const { id } = req.params;
+
+  collectionModel
+    .findOneAndUpdate(
+      {
+        _id: id,
+        isDel: false,
+        createdBy: req.token.id,
+      },
+      {
+        isDel: true,
+      },
+      { new: true }
+    )
+    .then((result) => {
+      if (result) {
+        likeModel
+          .updateMany({ designs: id, isLike: true }, { isLike: false })
+          .then(() => {
+            res.status(200).json({ message: " All collection Likes Deleted !" });
+          })
+          .catch((err) => {
+            res.status(400).json(err);
+          });
+        res
+          .status(200)
+          .json({ message: "Collection has been Deleted successfully " });
+      } else {
+        console.log(res);
+        res.status(404).json({ message: " There Is No Collection To Delete ! " });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+};
+
+
 module.exports = {
   createNewCollection,
   getTheCollections,
   getCollection,
   editCollection,
   favCollection,
+  removeCollection,
 };

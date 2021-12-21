@@ -9,6 +9,7 @@ const {
   getCollection,
   editCollection,
   favCollection,
+  removeCollection,
 } = require("../controllers/collection");
 
 collectionsRouter.post("/collection", authentication, createNewCollection);
@@ -16,6 +17,7 @@ collectionsRouter.get("/collections", getTheCollections);
 collectionsRouter.get("/collection/:id", authentication, getCollection);
 collectionsRouter.put("/collection/:id", authentication, editCollection);
 collectionsRouter.post("/fav/:id", authentication, favCollection);
+collectionsRouter.put("/del/:id", authentication, removeCollection);
 
 
 
