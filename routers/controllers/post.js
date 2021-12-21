@@ -23,7 +23,24 @@ const createNewPost = (req, res) => {
     });
 };
 
+//// this function to get all the posts in the app 
+const getThePosts = (req, res) => {
+  postModel
+    .find({ isDel: false })
+    .populate("createdBy")
+    .then((result) => {
+      if (result.length > 0) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: "There Is No Posts!!" });
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
 module.exports = {
-  createNewPost
+  createNewPost,
+  getThePosts,
 };
