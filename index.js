@@ -23,6 +23,10 @@ app.use(rolesRouter);
 const usersRouter = require("./routers/routes/user");
 app.use(usersRouter);
 
+//// create a middleware for post router
+const postsRouter = require("./routers/routes/post");
+app.use(postsRouter);
+
 /// Set PORT
 const PORT = process.env.PORT || 5000;
 
