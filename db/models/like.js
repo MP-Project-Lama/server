@@ -9,7 +9,7 @@ const likeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  collection: {
+  designs: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Collection",
   },

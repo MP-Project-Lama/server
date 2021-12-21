@@ -23,6 +23,19 @@ app.use(rolesRouter);
 const usersRouter = require("./routers/routes/user");
 app.use(usersRouter);
 
+//// create a middleware for post router
+const postsRouter = require("./routers/routes/post");
+app.use(postsRouter);
+
+///// create a middleware for comments routers
+const commentsRouter = require("./routers/routes/comment");
+app.use(commentsRouter);
+
+///// create a middleware for collections routers
+const collectionsRouter = require("./routers/routes/collection");
+app.use(collectionsRouter);
+
+
 /// Set PORT
 const PORT = process.env.PORT || 5000;
 

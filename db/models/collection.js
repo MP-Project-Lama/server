@@ -17,10 +17,12 @@ const collectionSchema = new mongoose.Schema({
     ref: "User",
   },
   createdAt: { type: Date, default: Date.now },
-
   isDel: {
     type: Boolean,
     default: false,
   },
+  like: { type: mongoose.Schema.Types.ObjectId, ref: "Like" },
 });
+
+
 module.exports = mongoose.model("Collection", collectionSchema);
