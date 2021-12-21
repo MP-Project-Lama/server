@@ -29,10 +29,11 @@ const getThePosts = (req, res) => {
     .find({ isDel: false })
     .populate("createdBy")
     .then((result) => {
-      if (result.length > 0) {
+      if (result) {
         res.status(200).json(result);
       } else {
         res.status(404).json({ message: "There Is No Posts!!" });
+
       }
     })
     .catch((err) => {

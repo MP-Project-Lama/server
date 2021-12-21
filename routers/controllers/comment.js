@@ -22,6 +22,29 @@ const createNewComment = (req, res) => {
     });
 };
 
+
+/// to get a all post's comment 
+const getTheComments = (req, res) => {
+  const { id } = req.params;
+  commentModel
+    .find({ post: id, isDel: false })
+    .populate("createdBy")
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+       
+      } else {
+        res.status(404).json({ message: "There Is No Post With this ID!!" });
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
+
 module.exports = {
   createNewComment,
+  getTheComments,
 };
