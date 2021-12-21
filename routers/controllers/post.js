@@ -40,7 +40,27 @@ const getThePosts = (req, res) => {
     });
 };
 
+/// this function to get a post in the blog
+const getPost = (req, res) => {
+  const { id } = req.params;
+  postModel
+    .find({ _id: id, isDel: false })
+    .populate("createdBy")
+    .then((result) => {
+      if (result.length > 0) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: "There Is No Post With this ID!!" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+};
+
 module.exports = {
   createNewPost,
   getThePosts,
+  getPost,
 };
