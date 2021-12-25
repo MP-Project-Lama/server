@@ -42,7 +42,7 @@ const signUp = async (req, res) => {
       username: usernameToLowerCase,
       password: hashedPassword,
       avatar,
-      resetCode: " ",
+      resetCode: "",
       activeCode,
       role,
     });
@@ -96,6 +96,7 @@ const verifyEmail = async (req, res) => {
 /// login function
 const login = (req, res) => {
   const { identity, password } = req.body;
+  console.log(identity, password);
 
   userModel
     .findOne({
@@ -103,6 +104,7 @@ const login = (req, res) => {
     })
     .populate("role")
     .then(async (result) => {
+      console.log(result);
       if (result) {
         if (result.isDel === false) {
           if (result.email == identity || result.username == identity) {
@@ -111,7 +113,6 @@ const login = (req, res) => {
                 password,
                 result.password
               );
-
               if (savedPassword) {
                 const payload = {
                   id: result._id,
@@ -143,6 +144,8 @@ const login = (req, res) => {
               .json({ message: " Email Or Username Doesn't Exist !" });
           }
         }
+      } else {
+        res.status(404).json({ message: " Email Or Username Doesn't Exist !" });
       }
     })
     .catch((error) => {
@@ -210,11 +213,10 @@ const editInfo = async (req, res) => {
     });
 };
 
-
 /// this function to check if the email is exist or not , to reset the password
 const checkTheEmail = async (req, res) => {
   const { email } = req.body;
-   const emailToLowerCase = email.toLowerCase();
+  const emailToLowerCase = email.toLowerCase();
   const exist = await userModel.findOne({ email });
   if (exist) {
     let resetCode = "";
@@ -245,7 +247,6 @@ const checkTheEmail = async (req, res) => {
           <h4> Thank You </h4>
           `,
         });
-        
       })
       .catch((error) => {
         res.status(400).json(error);
@@ -255,8 +256,7 @@ const checkTheEmail = async (req, res) => {
   }
 };
 
-
-/// this function to reset password  
+/// this function to reset password
 const resetPassword = async (req, res) => {
   const { id, code, password } = req.body;
 
@@ -281,6 +281,28 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const createAboutDesigner = async (req, res) => {
+  const { about, photos, concat } = req.body;
+  const user = await userModel.findOne({ _id: req.token.id });
+
+  userModel
+    .findByIdAndUpdate(
+      req.token.id,
+      {
+        about: about ? about : user.about,
+        photos: photos ? photos : user.pohots,
+        concat: concat ? concat : user.concat,
+      },
+      { new: true }
+    )
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
+
 module.exports = {
   signUp,
   verifyEmail,
@@ -290,4 +312,5 @@ module.exports = {
   editInfo,
   checkTheEmail,
   resetPassword,
+  createAboutDesigner,
 };

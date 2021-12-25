@@ -32,6 +32,15 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  about: {
+    type: String,
+  },
+  photos: {
+    type: Array,
+  },
+  concat: {
+    type: Array,
+  },
   role: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Role",
