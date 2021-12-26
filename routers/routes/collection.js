@@ -8,6 +8,8 @@ const {
   getTheApprove,
   getTheCollections,
   getCollection,
+getCollectionsOfCategory,
+getCollectionsOfMaterial,
   editCollection,
   favCollection,
   removeCollection,
@@ -21,6 +23,8 @@ collectionsRouter.put(
 );
 collectionsRouter.get("/collections", getTheCollections);
 collectionsRouter.get("/collection/:id", authentication, getCollection);
+collectionsRouter.post("/collections",  getCollectionsOfCategory);
+collectionsRouter.post("/material", authentication, getCollectionsOfMaterial);
 collectionsRouter.put("/collection/:id", authentication, editCollection);
 collectionsRouter.post("/fav/:id", authentication, favCollection);
 collectionsRouter.put("/del/:id", authentication, removeCollection);

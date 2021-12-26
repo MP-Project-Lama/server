@@ -185,9 +185,8 @@ const getAllUsers = (req, res) => {
 
 //// this function to edit user info in the app
 const editInfo = async (req, res) => {
-  const { avatar, password } = req.body;
-
-  let hashedPassword = "";
+  const { avatar, password, photos, concat, about } = req.body;
+let hashedPassword = "";
   if (password) {
     hashedPassword = await bcrypt.hash(password, SALT);
   }
@@ -199,6 +198,9 @@ const editInfo = async (req, res) => {
       {
         password: password ? hashedPassword : user.password,
         avatar: avatar ? avatar : user.avatar,
+        photos: photos ? photos : user.photos,
+        concat: concat ? concat : user.concat,
+        about: about ? about : user.about,
       },
       { new: true }
     )

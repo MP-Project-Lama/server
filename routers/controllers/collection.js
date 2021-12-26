@@ -27,13 +27,12 @@ const createNewCollection = (req, res) => {
 const getTheApprove = (req, res) => {
   const { id } = req.params;
   const { isPendding } = req.body;
-  
+
   if (isPendding) {
     collectionModel
       .findOne({ _id: id })
       .then((result) => {
         if (result) {
-         
           collectionModel
             .findByIdAndUpdate(
               { _id: id, isPendding: false },
@@ -71,7 +70,7 @@ const getTheApprove = (req, res) => {
 // to get all collections in the app :
 const getTheCollections = (req, res) => {
   collectionModel
-    .find({ isDel: false , isPendding: true})
+    .find({ isDel: false, isPendding: true })
     .populate("createdBy")
     .then((result) => {
       if (result) {
@@ -105,6 +104,43 @@ const getCollection = (req, res) => {
       res.status(400).json(err);
     });
 };
+/// get collections of specific category
+const getCollectionsOfCategory = (req, res) => {
+  const { category } = req.body;
+  collectionModel
+    .find({ isDel: false, isPendding: true, category  })
+    .populate("createdBy")
+    .then((result) => {
+      if (result) {
+        console.log(result);
+        res.status(200).json(result);
+      } else {
+        res.state(404).json({ message: " There Is No Collection" });
+      }
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
+
+/// get collections of specific material
+const getCollectionsOfMaterial = (req, res) => {
+  const { material } = req.body;
+  collectionModel
+    .find({ isDel: false, isPendding: true, material })
+    .populate("createdBy")
+    .then((result) => {
+      if (result) {
+        console.log(result);
+        res.status(200).json(result);
+      } else {
+        res.state(404).json({ message: " There Is No Collection" });
+      }
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
 
 /// this function to edit specific collection in the app
 const editCollection = (req, res) => {
@@ -124,6 +160,7 @@ const editCollection = (req, res) => {
         media,
         material,
         category,
+        isPendding: false,
       },
       { new: true }
     )
@@ -254,6 +291,8 @@ module.exports = {
   getTheApprove,
   getTheCollections,
   getCollection,
+  getCollectionsOfCategory,
+  getCollectionsOfMaterial,
   editCollection,
   favCollection,
   removeCollection,

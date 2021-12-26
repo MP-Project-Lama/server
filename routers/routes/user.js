@@ -23,6 +23,7 @@ usersRouter.post("/signup", signUp);
 usersRouter.post("/verify",verifyEmail);
 usersRouter.post("/login", login);
 usersRouter.get("/user/:id", authentication, getMyAccount);
+usersRouter.put("/user/:id", authentication, editInfo);
 usersRouter.get("/users",authentication, getAllUsers,  getAllUsers);
 usersRouter.post("/check", checkTheEmail);
 usersRouter.post("/reset", resetPassword);
