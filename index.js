@@ -4,16 +4,12 @@ const morgan = require("morgan");
 const cors = require("cors");
 const db = require("./db");
 
-
-
 // initiating the app
 const app = express();
 /// app-level middleware
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
-
-
 
 //  middleware for role routers
 const rolesRouter = require("./routers/routes/role");
@@ -34,7 +30,6 @@ app.use(commentsRouter);
 ///// create a middleware for collections routers
 const collectionsRouter = require("./routers/routes/collection");
 app.use(collectionsRouter);
-
 
 /// Set PORT
 const PORT = process.env.PORT || 5000;

@@ -22,6 +22,7 @@ const collectionSchema = new mongoose.Schema({
     default: false,
   },
   like: { type: mongoose.Schema.Types.ObjectId, ref: "Like" },
+  isPendding : { type : Boolean , default: false}
 });
 
 
