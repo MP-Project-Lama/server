@@ -1,8 +1,6 @@
 const commentModel = require("./../../db/models/comment");
 const postModel = require("./../../db/models/post");
 
-
-
 // this function to create a new comment in the app
 const createNewComment = (req, res) => {
   const { comment, postID } = req.body;
@@ -23,8 +21,7 @@ const createNewComment = (req, res) => {
     });
 };
 
-
-/// to get a all post's comment 
+/// to get a all post's comment
 const getTheComments = (req, res) => {
   const { id } = req.params;
   commentModel
@@ -33,7 +30,6 @@ const getTheComments = (req, res) => {
     .then((result) => {
       if (result) {
         res.status(200).json(result);
-       
       } else {
         res.status(404).json({ message: "There Is No Post With this ID!!" });
       }
@@ -42,7 +38,6 @@ const getTheComments = (req, res) => {
       res.status(400).json(err);
     });
 };
-
 
 /// this function to remove comment in the app
 const removeComment = (req, res) => {
@@ -91,9 +86,8 @@ const removeComment = (req, res) => {
     });
 };
 
-
 module.exports = {
   createNewComment,
   getTheComments,
-  removeComment
+  removeComment,
 };

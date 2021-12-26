@@ -5,6 +5,7 @@ const authorization = require("../middlewares/authorization");
 
 const {
   createNewCollection,
+  getTheApprove,
   getTheCollections,
   getCollection,
   editCollection,
@@ -13,12 +14,15 @@ const {
 } = require("../controllers/collection");
 
 collectionsRouter.post("/collection", authentication, createNewCollection);
+collectionsRouter.put(
+  "/approve/:id",
+  authentication,
+  authorization, getTheApprove
+);
 collectionsRouter.get("/collections", getTheCollections);
 collectionsRouter.get("/collection/:id", authentication, getCollection);
 collectionsRouter.put("/collection/:id", authentication, editCollection);
 collectionsRouter.post("/fav/:id", authentication, favCollection);
 collectionsRouter.put("/del/:id", authentication, removeCollection);
-
-
 
 module.exports = collectionsRouter;

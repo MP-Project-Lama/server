@@ -23,10 +23,55 @@ const createNewCollection = (req, res) => {
     });
 };
 
+//// apprve the coll
+const getTheApprove = (req, res) => {
+  const { id } = req.params;
+  const { isPendding } = req.body;
+  
+  if (isPendding) {
+    collectionModel
+      .findOne({ _id: id })
+      .then((result) => {
+        if (result) {
+         
+          collectionModel
+            .findByIdAndUpdate(
+              { _id: id, isPendding: false },
+              {
+                isPendding: true,
+              },
+              { new: true }
+            )
+            .then((result) => {
+              res.status(200).json(result);
+            });
+        }
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  } else {
+    collectionModel
+      .findByIdAndUpdate(
+        { _id: id },
+        {
+          isPendding: false,
+        },
+        { new: true }
+      )
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  }
+};
+
 // to get all collections in the app :
 const getTheCollections = (req, res) => {
   collectionModel
-    .find({ isDel: false })
+    .find({ isDel: false , isPendding: true})
     .populate("createdBy")
     .then((result) => {
       if (result) {
@@ -83,7 +128,7 @@ const editCollection = (req, res) => {
       { new: true }
     )
     .then((result) => {
-      console.log(result.material);
+      // console.log(result.material);
       if (result) {
         res.status(200).json(result);
       } else {
@@ -181,7 +226,9 @@ const removeCollection = (req, res) => {
         likeModel
           .updateMany({ designs: id, isLike: true }, { isLike: false })
           .then(() => {
-            res.status(200).json({ message: " All collection Likes Deleted !" });
+            res
+              .status(200)
+              .json({ message: " All collection Likes Deleted !" });
           })
           .catch((err) => {
             res.status(400).json(err);
@@ -191,7 +238,9 @@ const removeCollection = (req, res) => {
           .json({ message: "Collection has been Deleted successfully " });
       } else {
         console.log(res);
-        res.status(404).json({ message: " There Is No Collection To Delete ! " });
+        res
+          .status(404)
+          .json({ message: " There Is No Collection To Delete ! " });
       }
     })
     .catch((err) => {
@@ -200,9 +249,9 @@ const removeCollection = (req, res) => {
     });
 };
 
-
 module.exports = {
   createNewCollection,
+  getTheApprove,
   getTheCollections,
   getCollection,
   editCollection,

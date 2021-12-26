@@ -114,12 +114,13 @@ const login = (req, res) => {
                 result.password
               );
               if (savedPassword) {
+                console.log(result);
                 const payload = {
                   id: result._id,
                   email: result.email,
                   username: result.username,
+                  role: result.role.role,
                   isDel: result.isDel,
-                  role: result.role,
                 };
 
                 const options = {
@@ -303,6 +304,20 @@ const createAboutDesigner = async (req, res) => {
     });
 };
 
+/// to get all the designers
+const getTheDesignrs = async (req , res) => {
+  userModel
+    .find({ role: "61c1d3e4d78e4617e8b57384" })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+}
+
+
+
 module.exports = {
   signUp,
   verifyEmail,
@@ -313,4 +328,5 @@ module.exports = {
   checkTheEmail,
   resetPassword,
   createAboutDesigner,
+  getTheDesignrs,
 };
