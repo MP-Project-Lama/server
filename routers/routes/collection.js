@@ -2,7 +2,7 @@ const express = require("express");
 const collectionsRouter = express.Router();
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
-
+const designerAuthorization = require("../middlewares/designerAuthorization")
 const {
   createNewCollection,
   getTheApprove,
@@ -15,7 +15,12 @@ getCollectionsOfMaterial,
   removeCollection,
 } = require("../controllers/collection");
 
-collectionsRouter.post("/collection", authentication, createNewCollection);
+collectionsRouter.post(
+  "/collection",
+  authentication,
+  designerAuthorization,
+  createNewCollection
+);
 collectionsRouter.put(
   "/approve/:id",
   authentication,

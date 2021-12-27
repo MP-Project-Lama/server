@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
   resetCode: {
     type: String,
   },
+  isDesigner: {
+    type: Boolean,
+    default: false,
+  },
   activeCode: {
     type: String,
   },
@@ -47,5 +51,6 @@ const userSchema = new mongoose.Schema({
     default: "61c1d3f7d78e4617e8b57386",
   },
 });
+
 
 module.exports = mongoose.model("User", userSchema);

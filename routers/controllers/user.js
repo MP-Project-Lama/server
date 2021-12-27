@@ -11,7 +11,7 @@ const SALT = Number(process.env.SALT);
 const SECRET = process.env.SECRET;
 
 const signUp = async (req, res) => {
-  const { email, username, password, avatar, role } = req.body;
+  const { email, username, password, avatar, role, isDesigner } = req.body;
 
   const emailToLowerCase = email.toLowerCase();
   const usernameToLowerCase = username.toLowerCase();
@@ -45,6 +45,7 @@ const signUp = async (req, res) => {
       resetCode: "",
       activeCode,
       role,
+      isDesigner,
     });
     newUser.save().then((result) => {
       res.status(201).json(result);
