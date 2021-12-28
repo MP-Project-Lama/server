@@ -105,7 +105,7 @@ const login = (req, res) => {
     })
     .populate("role")
     .then(async (result) => {
-      console.log(result);
+      // console.log(result);
       if (result) {
         if (result.isDel === false) {
           if (result.email == identity || result.username == identity) {
@@ -115,7 +115,7 @@ const login = (req, res) => {
                 result.password
               );
               if (savedPassword) {
-                console.log(result);
+                // console.log(result);
                 const payload = {
                   id: result._id,
                   email: result.email,
@@ -130,6 +130,7 @@ const login = (req, res) => {
                 const token = jwt.sign(payload, SECRET, options);
 
                 res.status(201).json({ result, token });
+               
               } else {
                 res
                   .status(400)
@@ -162,6 +163,7 @@ const getMyAccount = (req, res) => {
     .findOne({ _id: id })
     .then((result) => {
       if (result) {
+        
         res.status(200).json(result);
       } else {
         res.status(404).json({ message: " There Is No User With This ID !" });

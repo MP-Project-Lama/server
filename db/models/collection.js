@@ -6,10 +6,15 @@ const collectionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  media: {
-    type: Array,
-    required: true,
+  video: {
+    type: String,
   },
+  media: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Look",
+    },
+  ],
   material: { type: String, required: true },
   category: { type: String, required: true },
   createdBy: {
@@ -22,8 +27,7 @@ const collectionSchema = new mongoose.Schema({
     default: false,
   },
   like: { type: mongoose.Schema.Types.ObjectId, ref: "Like" },
-  isPendding : { type : Boolean , default: false}
+  isPendding: { type: Boolean, default: false },
 });
-
 
 module.exports = mongoose.model("Collection", collectionSchema);

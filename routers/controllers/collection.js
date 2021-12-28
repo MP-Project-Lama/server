@@ -1,6 +1,50 @@
 const collectionModel = require("./../../db/models/collection");
 const likeModel = require("./../../db/models/like");
+const lookModel = require("./../../db/models/look");
+
 // this function to create a new collection
+const createLook = (req, res) => {
+  const { look } = req.body;
+
+  const newLook = new lookModel({
+    look,
+  });
+  newLook
+    .save()
+    .then((result) => {
+      res.status(201).json(result._id);
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
+///
+const editLook = (req, res) => {
+  const { id } = req.params;
+  const { look } = req.body;
+  //// update
+  lookModel
+    .findOneAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        look,
+      },
+      { new: true }
+    )
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: " There Is No Looks ! " });
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+////
 const createNewCollection = (req, res) => {
   const { title, desc, media, material, category } = req.body;
 
@@ -108,8 +152,9 @@ const getCollection = (req, res) => {
 const getCollectionsOfCategory = (req, res) => {
   const { category } = req.body;
   collectionModel
-    .find({ isDel: false, isPendding: true, category  })
+    .find({ isDel: false, isPendding: true, category })
     .populate("createdBy")
+    .populate("media")
     .then((result) => {
       if (result) {
         console.log(result);
@@ -287,6 +332,8 @@ const removeCollection = (req, res) => {
 };
 
 module.exports = {
+  createLook,
+  editLook,
   createNewCollection,
   getTheApprove,
   getTheCollections,
