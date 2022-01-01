@@ -5,7 +5,8 @@ const Secret = process.env.SECRET;
 
 const authentication = (req, res, next) => {
   try {
-    if (!req.headers.authorization) {
+    console.log(req.headers);
+    if (!req.headers.authorization ) {
       return res.status(403).json({ message: "Forbidden!" });
     }
     /////this will cut the token to use it in validation
