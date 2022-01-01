@@ -14,7 +14,8 @@ const {
   checkTheEmail,
   resetPassword,
   createAboutDesigner,
-  getTheDesignrs
+  getTheDesignrs,
+  getDesignr,
 } = require("../controllers/user");
 
 
@@ -29,6 +30,8 @@ usersRouter.post("/check", checkTheEmail);
 usersRouter.post("/reset", resetPassword);
 usersRouter.put("/designer", authentication, createAboutDesigner);
 usersRouter.get("/designers", getTheDesignrs);
+usersRouter.get("/designer/:id", getDesignr);
+
 
 
 

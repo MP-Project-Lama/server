@@ -1,7 +1,7 @@
 const roleModel = require("./../../db/models/role");
 
 const designerAuthorization = async (req, res, next) => {
-//   console.log(req.token);
+  console.log(req.token);
   try {
     if (req.token.role == "Designer") {
       next();

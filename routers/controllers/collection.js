@@ -56,7 +56,7 @@ const createNewCollection = (req, res) => {
     category,
     createdBy: req.token.id,
   });
-
+// console.log(req.token.id);
   collection
     .save()
     .then((result) => {
@@ -114,8 +114,8 @@ const getTheApprove = (req, res) => {
 // to get all collections in the app :
 const getTheCollections = (req, res) => {
   collectionModel
-    .find({ isDel: false, isPendding: true })
-    .populate("createdBy")
+    .find({ isDel: false })
+    .populate("createdBy media")
     .then((result) => {
       if (result) {
         res.status(200).json(result);

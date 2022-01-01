@@ -130,7 +130,6 @@ const login = (req, res) => {
                 const token = jwt.sign(payload, SECRET, options);
 
                 res.status(201).json({ result, token });
-               
               } else {
                 res
                   .status(400)
@@ -163,7 +162,6 @@ const getMyAccount = (req, res) => {
     .findOne({ _id: id })
     .then((result) => {
       if (result) {
-        
         res.status(200).json(result);
       } else {
         res.status(404).json({ message: " There Is No User With This ID !" });
@@ -189,7 +187,7 @@ const getAllUsers = (req, res) => {
 //// this function to edit user info in the app
 const editInfo = async (req, res) => {
   const { avatar, password, photos, concat, about } = req.body;
-let hashedPassword = "";
+  let hashedPassword = "";
   if (password) {
     hashedPassword = await bcrypt.hash(password, SALT);
   }
@@ -310,7 +308,7 @@ const createAboutDesigner = async (req, res) => {
 };
 
 /// to get all the designers
-const getTheDesignrs = async (req , res) => {
+const getTheDesignrs = async (req, res) => {
   userModel
     .find({ role: "61c1d3e4d78e4617e8b57384" })
     .then((result) => {
@@ -319,9 +317,27 @@ const getTheDesignrs = async (req , res) => {
     .catch((err) => {
       res.status(400).json(err);
     });
-}
+};
 
-
+////
+const getDesignr = async (req, res) => {
+  const { id } = req.params;
+  userModel
+    .findOne({ _id: id, isDel: false, isDesigner: true })
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res
+          .status(404)
+          .json({ message: "There Is No Designer With this ID!!" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+};
 
 module.exports = {
   signUp,
@@ -334,4 +350,5 @@ module.exports = {
   resetPassword,
   createAboutDesigner,
   getTheDesignrs,
+  getDesignr,
 };
