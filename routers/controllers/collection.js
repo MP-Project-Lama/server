@@ -56,7 +56,7 @@ const createNewCollection = (req, res) => {
     category,
     createdBy: req.token.id,
   });
-// console.log(req.token.id);
+  // console.log(req.token.id);
   collection
     .save()
     .then((result) => {
@@ -114,11 +114,14 @@ const getTheApprove = (req, res) => {
 // to get all collections in the app :
 const getTheCollections = (req, res) => {
   collectionModel
-    .find({ isDel: false })
+    .find({
+      isDel: false, 
+    })
     .populate("createdBy media")
     .then((result) => {
       if (result) {
-        res.status(200).json(result);
+     res.status(200).json(result)
+    
       } else {
         res.status(404).json({ message: "There Is No Collections!!" });
       }
@@ -133,7 +136,7 @@ const getCollection = (req, res) => {
   const { id } = req.params;
   collectionModel
     .find({ _id: id, isDel: false })
-    .populate("createdBy")
+    .populate("createdBy media")
     .then((result) => {
       if (result) {
         res.status(200).json(result);
@@ -144,7 +147,6 @@ const getCollection = (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
       res.status(400).json(err);
     });
 };
@@ -153,11 +155,9 @@ const getCollectionsOfCategory = (req, res) => {
   const { category } = req.body;
   collectionModel
     .find({ isDel: false, isPendding: true, category })
-    .populate("createdBy")
-    .populate("media")
+    .populate("createdBy media")
     .then((result) => {
       if (result) {
-        console.log(result);
         res.status(200).json(result);
       } else {
         res.state(404).json({ message: " There Is No Collection" });
@@ -173,10 +173,9 @@ const getCollectionsOfMaterial = (req, res) => {
   const { material } = req.body;
   collectionModel
     .find({ isDel: false, isPendding: true, material })
-    .populate("createdBy")
+    .populate("createdBy media")
     .then((result) => {
       if (result) {
-        console.log(result);
         res.status(200).json(result);
       } else {
         res.state(404).json({ message: " There Is No Collection" });
@@ -319,14 +318,12 @@ const removeCollection = (req, res) => {
           .status(200)
           .json({ message: "Collection has been Deleted successfully " });
       } else {
-        console.log(res);
         res
           .status(404)
           .json({ message: " There Is No Collection To Delete ! " });
       }
     })
     .catch((err) => {
-      console.log(err);
       res.status(400).json(err);
     });
 };
