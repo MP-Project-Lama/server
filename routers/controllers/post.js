@@ -1,10 +1,15 @@
 const postModel = require("./../../db/models/post");
 const commentModel = require("./../../db/models/comment");
 
-/// this function to create a new post by designer in the app :
+
+
+/// this function to create a new post by a designer in the app :
 const createNewPost = (req, res) => {
   const { title, desc, media } = req.body;
 
+
+  console.log("req.body", req.body);
+res.status(201).json("result");
   const newPost = new postModel({
     title,
     desc,
@@ -23,7 +28,7 @@ const createNewPost = (req, res) => {
     });
 };
 
-//// this function to get all the posts in the app
+/// this function to get all the posts in the app
 const getThePosts = (req, res) => {
   postModel
     .find({ isDel: false })
@@ -90,7 +95,7 @@ const editPost = (req, res) => {
     });
 };
 
-//this function to remove a post in the blog
+/// this function to remove a post in the blog
 const removePost = (req, res) => {
   const { id } = req.params;
 

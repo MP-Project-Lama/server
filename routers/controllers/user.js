@@ -10,6 +10,9 @@ const SALT = Number(process.env.SALT);
 // this is the secret key , from .env
 const SECRET = process.env.SECRET;
 
+
+
+/// Signup Function
 const signUp = async (req, res) => {
   const { email, username, password, avatar, role, isDesigner } = req.body;
 
@@ -184,7 +187,7 @@ const getAllUsers = (req, res) => {
     });
 };
 
-//// this function to edit user info in the app
+/// this function to edit user info in the app
 const editInfo = async (req, res) => {
   const { avatar, password, photos, concat, about } = req.body;
   let hashedPassword = "";
@@ -285,6 +288,7 @@ const resetPassword = async (req, res) => {
   }
 };
 
+/// create About designer
 const createAboutDesigner = async (req, res) => {
   const { about, photos, concat } = req.body;
   const user = await userModel.findOne({ _id: req.token.id });
@@ -319,7 +323,7 @@ const getTheDesignrs = async (req, res) => {
     });
 };
 
-////
+//// get a designer By ID 
 const getDesignr = async (req, res) => {
   const { id } = req.params;
   userModel
@@ -339,6 +343,24 @@ const getDesignr = async (req, res) => {
     });
 };
 
+/// delete user => soft delete
+const deleteUser = (req, res) => {
+  const { id } = req.params;
+
+  userModel
+    .findOneAndUpdate({ _id: id, isDel: false }, { isDel: true }, { new: true })
+    .then((result) => {
+      if (result) {
+        res.send("this user has been removed!");
+      } else {
+        res.status(404).json({ message: " There Is No User To Remove!" });
+      }
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 module.exports = {
   signUp,
   verifyEmail,
@@ -351,4 +373,5 @@ module.exports = {
   createAboutDesigner,
   getTheDesignrs,
   getDesignr,
+  deleteUser,
 };
