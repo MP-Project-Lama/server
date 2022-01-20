@@ -2,7 +2,7 @@ const collectionModel = require("./../../db/models/collection");
 const likeModel = require("./../../db/models/like");
 const lookModel = require("./../../db/models/look");
 
-// this function to create a new collection
+// this function to create a new look
 const createLook = (req, res) => {
   const { look } = req.body;
 
@@ -18,7 +18,8 @@ const createLook = (req, res) => {
       res.status(400).json(error);
     });
 };
-///
+
+/// edit look
 const editLook = (req, res) => {
   const { id } = req.params;
   const { look } = req.body;
@@ -44,7 +45,7 @@ const editLook = (req, res) => {
       res.status(400).json(err);
     });
 };
-////
+/// create new collection
 const createNewCollection = (req, res) => {
   const { title, desc, media, material, category } = req.body;
 
@@ -67,7 +68,7 @@ const createNewCollection = (req, res) => {
     });
 };
 
-//// apprve the coll
+//// apprve the collection
 const getTheApprove = (req, res) => {
   const { id } = req.params;
   const { isPendding } = req.body;
@@ -115,13 +116,12 @@ const getTheApprove = (req, res) => {
 const getTheCollections = (req, res) => {
   collectionModel
     .find({
-      isDel: false, 
+      isDel: false,
     })
     .populate("createdBy media")
     .then((result) => {
       if (result) {
-     res.status(200).json(result)
-    
+        res.status(200).json(result);
       } else {
         res.status(404).json({ message: "There Is No Collections!!" });
       }
@@ -179,6 +179,31 @@ const getCollectionsOfMaterial = (req, res) => {
         res.status(200).json(result);
       } else {
         res.state(404).json({ message: " There Is No Collection" });
+      }
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
+
+//// get collection by designer id
+const getCollectionByDesigner = (req, res) => {
+  const { id } = req.params;
+  collectionModel
+    .findOne({  isDel: false, isPendding: true })
+    .populate("createdBy media")
+    .then((result) => {
+      if (result) {
+        console.log(result);
+        if (result.createdBy._id == id) {
+          res.status(200).json(result);
+        } else {
+          res
+            .status(404)
+            .json({ message: " There Is No Collection for this Designer" });
+        }
+      } else {
+        res.status(404).json({ message: " There Is No Collection " });
       }
     })
     .catch((error) => {
@@ -335,6 +360,7 @@ module.exports = {
   getTheApprove,
   getTheCollections,
   getCollection,
+  getCollectionByDesigner,
   getCollectionsOfCategory,
   getCollectionsOfMaterial,
   editCollection,

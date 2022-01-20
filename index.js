@@ -3,7 +3,7 @@ require("dotenv").config();
 const morgan = require("morgan");
 const cors = require("cors");
 const db = require("./db");
-
+const socket = require("socket.io");
 // initiating the app
 const app = express();
 /// app-level middleware
@@ -29,11 +29,32 @@ app.use(commentsRouter);
 
 ///// create a middleware for collections routers
 const collectionsRouter = require("./routers/routes/collection");
+const { Socket } = require("socket.io");
 app.use(collectionsRouter);
 
 /// Set PORT
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server Started On : ${PORT}`);
+});
+
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("Socket connect successfully");
+  socket.on("join_room", (data) => {
+    socket.join(data.room);
+    console.log(`${data.username} has entered the room `);
+  });
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("recieve_message", {
+      username: data.username,
+      content: data.content,
+    });
+  });
 });
