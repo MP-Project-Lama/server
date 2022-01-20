@@ -43,7 +43,7 @@ collectionsRouter.post(
 );
 collectionsRouter.get("/collections", getTheCollections);
 collectionsRouter.get("/collection/:id", authentication, getCollection);
-collectionsRouter.post("/collection/designer", getCollectionByDesigner);
+collectionsRouter.get("/collection/designer/:id", getCollectionByDesigner);
 collectionsRouter.post("/collections", getCollectionsOfCategory);
 collectionsRouter.post("/material", authentication, getCollectionsOfMaterial);
 collectionsRouter.put(
